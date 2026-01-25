@@ -16,7 +16,7 @@ import { Input } from "@/components/ui/input"
 import { z } from "zod"
 import axios from 'axios'
 import { toast } from 'react-toastify'
-
+import { FaArrowRight } from 'react-icons/fa'
 const formSchema = z.object({
   name: z.string().min(3, {
     message: "Name must be at least 3 characters.",
@@ -52,7 +52,7 @@ const SignupForm = ({ setIsLogin }: { setIsLogin: (isLogin: boolean) => void }) 
   }
 
   return (
-    <Card className="w-full h-[60vh] max-w-sm px-2">
+    <Card className="w-full h-[95%] max-w-sm px-2 bg-zinc-50">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
@@ -104,10 +104,12 @@ const SignupForm = ({ setIsLogin }: { setIsLogin: (isLogin: boolean) => void }) 
               </FormItem>
             )}
           />
-          <Button className="w-1/2 mx-auto" type="submit">Sign up</Button>
+          <Button className="w-1/2 mx-auto block items-center justify-center bg-indigo-500 text-white hover:bg-indigo-600 transition-all duration-300" type="submit">Sign up</Button>
         </form>
       </Form>
-      <span onClick={() => setIsLogin(true)}>Already have an account? Login</span>
+      <span className='text-xs text-blue-300 cursor-pointer hover:text-indigo-600 transition-all duration-300 hover:text-sm flex flex-row items-center justify-center' onClick={() => setIsLogin(true)}>
+        Already have an account? Login <FaArrowRight className='ml-2' /> 
+        </span>
     </Card>
   )
 }

@@ -19,7 +19,7 @@ import { z } from "zod"
 import axios from "axios"
 import { useRouter } from "next/navigation"
 import { toast } from 'react-toastify';
-
+import { FaArrowRight } from "react-icons/fa";
 const formSchema = z.object({
   email: z.string().email({
     message: "Invalid email address.",
@@ -56,7 +56,7 @@ const LoginForm = ({ setIsLogin }: { setIsLogin: (isLogin: boolean) => void }) =
 
 
   return (
-      <Card className="w-2/5 h-[49vh] px-2 border-none">
+      <Card className="w-4/5 lg:w-2/5 h-auto lg:h-[60vh] px-2 border-none flex flex-col justify-center bg-zinc-50 shadow-2xl ">
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -67,7 +67,7 @@ const LoginForm = ({ setIsLogin }: { setIsLogin: (isLogin: boolean) => void }) =
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="user@example.com" {...field} />
+                    <Input  placeholder="user@example.com" {...field} />
                   </FormControl>
                   <FormDescription>
                     This is your email address.
@@ -93,10 +93,12 @@ const LoginForm = ({ setIsLogin }: { setIsLogin: (isLogin: boolean) => void }) =
                 </FormItem>
               )}
             />
-            <Button className="w-1/2 mx-auto" type="submit">Login</Button>
+            <Button className="w-1/2 mx-auto block items-center justify-center bg-indigo-500 hover:bg-pink-400 cursor-pointer text-white hover:scale-105 transition-all duration-300" type="submit">Login</Button>
           </form>
         </Form>
-        <span onClick={() => setIsLogin(false)}>Sign up</span>
+        <span className="flex flex-row items-center text-xs justify-center text-blue-300 cursor-pointer transition-all duration-300 hover:text-sm" onClick={() => setIsLogin(false)}>Sign up
+        <FaArrowRight />
+        </span>
       </Card>
   )
 }
