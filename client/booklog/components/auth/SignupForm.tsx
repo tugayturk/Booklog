@@ -52,7 +52,7 @@ const SignupForm = ({ setIsLogin }: { setIsLogin: (isLogin: boolean) => void }) 
   }
 
   return (
-    <Card className="w-full h-[95%] max-w-sm px-2 bg-zinc-50">
+    <Card className="w-full h-[90%] max-w-sm px-2 bg-zinc-50">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
@@ -107,8 +107,10 @@ const SignupForm = ({ setIsLogin }: { setIsLogin: (isLogin: boolean) => void }) 
           <Button className="w-1/2 mx-auto block items-center justify-center bg-indigo-500 text-white hover:bg-indigo-600 transition-all duration-300" type="submit">Sign up</Button>
         </form>
       </Form>
-      <span className='text-xs text-blue-300 cursor-pointer hover:text-indigo-600 transition-all duration-300 hover:text-sm flex flex-row items-center justify-center' onClick={() => setIsLogin(true)}>
-        Already have an account? Login <FaArrowRight className='ml-2' /> 
+      <span className='text-xs text-blue-300 cursor-pointer hover:text-indigo-600
+       transition-all duration-300 hover:text-sm flex flex-row items-center justify-center' onClick={() => setIsLogin(true)}>
+        Already have an account? Login
+         <FaArrowRight className='ml-2' /> 
         </span>
     </Card>
   )

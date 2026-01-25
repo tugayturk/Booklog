@@ -34,7 +34,8 @@ export default function Home() {
         </p>
       </div>
 
-      <div className="w-4/5 h-auto lg:h-[75vh] flex flex-col lg:flex-row items-center justify-center lg:justify-around bg-miamivice rounded-sm mt-2 z-999 transition-all duration-300 hover:-translate-y-1 py-8 lg:py-0">
+      <div className="w-4/5 h-auto lg:h-[75vh] flex flex-col lg:flex-row items-center justify-center lg:justify-around
+       bg-miamivice rounded-sm mt-2 z-999 transition-all duration-300 hover:-translate-y-1 py-8 lg:py-0 shadow-xl shadow-gray-500">
 
         {isLogin ? <LoginForm setIsLogin={setIsLogin} /> : <SignupForm setIsLogin={setIsLogin} />}
 
