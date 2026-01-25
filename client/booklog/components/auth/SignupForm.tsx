@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { z } from "zod"
 import axios from 'axios'
+import { toast } from 'react-toastify'
 
 const formSchema = z.object({
   name: z.string().min(3, {
@@ -43,9 +44,10 @@ const SignupForm = ({ setIsLogin }: { setIsLogin: (isLogin: boolean) => void }) 
     try {
       const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`, values);
       setIsLogin(true);
-
+      toast.success("Kayıt başarılı");
     } catch (error) {
       console.log(error);
+      toast.error( "Kayıt başarısız");
     }
   }
 

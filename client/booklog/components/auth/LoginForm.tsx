@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input"
 import { z } from "zod"
 import axios from "axios"
 import { useRouter } from "next/navigation"
+import { toast } from 'react-toastify';
 
 const formSchema = z.object({
   email: z.string().email({
@@ -46,8 +47,10 @@ const LoginForm = ({ setIsLogin }: { setIsLogin: (isLogin: boolean) => void }) =
       window.localStorage.setItem("token", response.data.token);
       window.localStorage.setItem("user", JSON.stringify(response.data.user));
       router.push("/home");
+      toast.success("Giriş yapıldı");
     } catch (error) {
       console.log(error);
+      toast.error("Giriş yapılamadı");
     }
   }
 
@@ -93,7 +96,6 @@ const LoginForm = ({ setIsLogin }: { setIsLogin: (isLogin: boolean) => void }) =
             <Button className="w-1/2 mx-auto" type="submit">Login</Button>
           </form>
         </Form>
-
         <span onClick={() => setIsLogin(false)}>Sign up</span>
       </Card>
   )
