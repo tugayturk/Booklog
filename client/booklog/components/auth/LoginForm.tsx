@@ -1,3 +1,4 @@
+"use client"
 import {
   Card,
 } from "@/components/ui/card"
@@ -15,17 +16,21 @@ import { useForm } from "react-hook-form"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { z } from "zod"
+import axios from "axios"
+import { useRouter } from "next/navigation"
 
 const formSchema = z.object({
   email: z.string().email({
     message: "Invalid email address.",
   }),
-  password: z.string().min(8, {
-    message: "Password must be at least 8 characters.",
+  password: z.string().min(6, {
+    message: "Password must be at least 6 characters.",
   }),
 })
 
 const LoginForm = ({ setIsLogin }: { setIsLogin: (isLogin: boolean) => void }) => {
+
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -35,14 +40,20 @@ const LoginForm = ({ setIsLogin }: { setIsLogin: (isLogin: boolean) => void }) =
     },
   })
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values)
+  const onSubmit = async(values: z.infer<typeof formSchema>) => {
+    try{
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`, values);
+      window.localStorage.setItem("token", response.data.token);
+      window.localStorage.setItem("user", JSON.stringify(response.data.user));
+      router.push("/home");
+    } catch (error) {
+      console.log(error);
+    }
   }
 
 
   return (
-    <div className="w-full h-[50vh] max-w-sm p-[2px] bg-linear-to-b from-blue-300 to-pink-300 rounded-xl flex items-center justify-center">
-      <Card className="w-[99%] h-[49vh] px-2 border-none">
+      <Card className="w-2/5 h-[49vh] px-2 border-none">
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -85,7 +96,6 @@ const LoginForm = ({ setIsLogin }: { setIsLogin: (isLogin: boolean) => void }) =
 
         <span onClick={() => setIsLogin(false)}>Sign up</span>
       </Card>
-    </div>
   )
 }
 

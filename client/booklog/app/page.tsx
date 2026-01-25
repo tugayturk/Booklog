@@ -35,12 +35,12 @@ export default function Home() {
       </div>
 
 
-        <div className="w-4/5 h-[70vh] flex items-center justify-around bg-black rounded-xl mt-2">
+        <div className="w-4/5 h-[70vh] flex items-center justify-around bg-linear-to-b from-blue-300 to-pink-300  rounded-xl mt-2">
 
 
           {isLogin ? <LoginForm setIsLogin={setIsLogin} /> : <SignupForm setIsLogin={setIsLogin} />}
 
-          <div className="w-[400px] h-[400px] items-center justify-center flex relative overflow-hidden bg-linear-to-b from-blue-300 to-pink-300 rounded-md  ">
+          <div className="w-[400px] h-[400px] items-center justify-center flex relative overflow-hidden  rounded-md  ">
             {images.map((image, index) => (
               <Image
                 key={index}
