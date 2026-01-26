@@ -1,20 +1,72 @@
 "use client"
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import React, { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { Button } from "@/components/ui/button"
+import { Book } from '@/components/card/books';
+import Comments from '@/components/comments/comments';
+import axios from 'axios';
+import BookList from '@/components/card/bookList';
 
 const Home = () => {
 
   const router = useRouter();
+  const [sortedBooks, setSortedBooks] = useState([]);
 
   useEffect(() => {
     const token = window.localStorage.getItem("token");
     if (!token) {
       router.push("/");
     }
+
+    axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/books/sorted`).then((res) => {
+      setSortedBooks(res.data.books);
+    }).catch((err: any) => {
+      console.log(err);
+    });
   }, []);
+
+
   return (
-    <div className='text-black'>Home</div>
+    <div className='w-full h-full'>
+
+      <section className='container mx-auto h-[80vh] relative flex flex-col items-center justify-center mt-1'>
+        <div className='absolute inset-0 bg-[url(/library.jpeg)] bg-cover bg-center'></div>
+        <h1 className='relative z-10 text-white text-4xl font-bold'>BookLog</h1>
+        <h4 className='relative z-10 text-white text-lg italic'>Your quiet place to track, reflect, and remember books.</h4>
+        <Button className='relative z-10 text-white bg-miamivice hover:bg-miamivice/80 text-sm font-bold py-2 px-4 rounded-md' asChild><Link href="/books">See All Books</Link></Button>
+      </section>
+
+      <div className='container mx-auto h-[70vh] mt-2 items-center justify-center'>
+        <h3 className='block text-center text-4xl mb-4 mt-4 font-bold  italic bg-miamivice bg-clip-text text-transparent'>Last Added Books</h3>
+        <Book book={sortedBooks} />
+      </div>
+
+      {/* Comment Section */}
+
+      <div className='container mx-auto h-[80vh] w-3/4 mb-6 bg-zinc-50 flex flex-col items-center justify-center  rounded-md shadow-xl shadow-gray-500'>
+
+        <div className='flex  items-center justify-center'>
+          <h3 className='block text-center text-4xl font-bold  italic bg-miamivice bg-clip-text text-transparent mb-4'>Comments on Books</h3>
+        </div>
+
+        <div className='flex items-center justify-center'>
+          <div className='w-1/2 h-full  '>
+            <Book book={sortedBooks.slice(0, 1)} />
+          </div>
+          <div className='w-1/2 h-full'>
+            {Array.from({ length: 2 }).map((_, index) => (
+              <Comments key={index} />
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </div>
+
   )
+
+
 }
 
 export default Home

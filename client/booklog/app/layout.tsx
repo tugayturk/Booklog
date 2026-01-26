@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import "./globals.css";
 import { ModeToggle } from "@/components/themeToggle";
 import ToastProvider from "@/components/ToastProvider";
+import Header from "@/components/layout/Header";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -35,9 +36,10 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <div className="fixed top-4 right-4 z-50">
+            {/* <div className="fixed top-4 right-4 z-50">
               <ModeToggle />
-            </div>
+            </div> */}
+            <Header />
           {children}
           </ThemeProvider>
           <ToastProvider />
