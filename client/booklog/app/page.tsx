@@ -23,13 +23,13 @@ export default function Home() {
   }, [images.length])
 
   return (
-    <main className="min-h-screen flex flex-col items-center ">
+    <main className="min-h-screen flex flex-col items-center font-serif ">
 
       <div className="text-center space-y-4 w-4/5">
-        <h1 className="text-5xl font-serif text-primary mt-2">
+        <h1 className="text-5xl font-serif text-[#121B28] mt-2 ">
           BookLog
         </h1>
-        <p className="text-primary italic">
+        <p className="text-[#121B28] italic">
           Your quiet place to track, reflect, and remember books.
         </p>
       </div>

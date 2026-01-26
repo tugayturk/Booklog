@@ -52,7 +52,7 @@ const SignupForm = ({ setIsLogin }: { setIsLogin: (isLogin: boolean) => void }) 
   }
 
   return (
-    <Card className="w-full h-[90%] max-w-sm px-2 bg-zinc-50">
+    <Card className="w-full h-[98%] max-w-sm px-2 bg-zinc-50">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
@@ -64,10 +64,10 @@ const SignupForm = ({ setIsLogin }: { setIsLogin: (isLogin: boolean) => void }) 
                 <FormControl>
                   <Input placeholder="John Doe" {...field} />
                 </FormControl>
-                <FormDescription>
+                <FormDescription className='text-xs text-gray-500'>
                   This is your name.
                 </FormDescription>
-                <FormMessage />
+                <FormMessage className='text-xs text-red-500' />
               </FormItem>
             )}
           />
@@ -80,10 +80,10 @@ const SignupForm = ({ setIsLogin }: { setIsLogin: (isLogin: boolean) => void }) 
                 <FormControl>
                   <Input placeholder="user@example.com" {...field} />
                 </FormControl>
-                <FormDescription>
+                <FormDescription className='text-xs text-gray-500'>
                   This is your email address.
                 </FormDescription>
-                <FormMessage />
+                <FormMessage className='text-xs text-red-500' />
               </FormItem>
             )}
           />
@@ -97,10 +97,10 @@ const SignupForm = ({ setIsLogin }: { setIsLogin: (isLogin: boolean) => void }) 
                 <FormControl>
                   <Input type="password" placeholder="********" {...field} />
                 </FormControl>
-                <FormDescription>
+                <FormDescription className='text-xs text-gray-500'>
                   This is your password.
                 </FormDescription>
-                <FormMessage />
+                <FormMessage className='text-xs text-red-500' />
               </FormItem>
             )}
           />

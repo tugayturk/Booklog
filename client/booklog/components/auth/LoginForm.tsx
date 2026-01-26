@@ -69,10 +69,10 @@ const LoginForm = ({ setIsLogin }: { setIsLogin: (isLogin: boolean) => void }) =
                   <FormControl>
                     <Input  placeholder="user@example.com" {...field} />
                   </FormControl>
-                  <FormDescription>
+                  <FormDescription className='text-xs text-gray-500'>
                     This is your email address.
                   </FormDescription>
-                  <FormMessage />
+                  <FormMessage className='text-xs text-red-500'  />
                 </FormItem>
               )}
             />
@@ -86,10 +86,10 @@ const LoginForm = ({ setIsLogin }: { setIsLogin: (isLogin: boolean) => void }) =
                   <FormControl>
                     <Input type="password" placeholder="********" {...field} />
                   </FormControl>
-                  <FormDescription>
+                  <FormDescription className='text-xs text-gray-500'>
                     This is your password.
                   </FormDescription>
-                  <FormMessage />
+                  <FormMessage className='text-xs text-red-500' />
                 </FormItem>
               )}
             />
