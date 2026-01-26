@@ -8,12 +8,13 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import Link from "next/link";
-export function Book({ book }: { book: any }) {
+import { Book as BookType } from '@/types/book';
+export function Book({ book }: { book: BookType[] }) {
 
 
   return (
     <div className="flex flex-wrap gap-4">
-     {book.map((book: any, index: number) => (
+     {book.map((book: BookType, index: number) => (
        <Card key={index} className="relative mx-auto w-full max-w-sm pt-0">
        <div className="absolute inset-0 z-30 aspect-video " />
        <img
@@ -30,7 +31,7 @@ export function Book({ book }: { book: any }) {
          </CardDescription>
        </CardHeader>
        <CardFooter>
-         <Button className="w-1/2 mx-auto">
+         <Button className="w-1/2 mx-auto bg-miamivice hover:bg-miamivice/80 text-white">
          <Link href={`/books/${book._id}`}>View Book</Link></Button>
        </CardFooter>
      </Card>

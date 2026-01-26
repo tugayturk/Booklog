@@ -5,6 +5,7 @@ import "./globals.css";
 import { ModeToggle } from "@/components/themeToggle";
 import ToastProvider from "@/components/ToastProvider";
 import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -41,6 +42,7 @@ export default function RootLayout({
             </div> */}
             <Header />
           {children}
+          <Footer />
           </ThemeProvider>
           <ToastProvider />
       </body>

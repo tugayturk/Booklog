@@ -137,6 +137,7 @@ body {
 
 @layer utilities {
   .bg-miamivice {
-    @apply bg-linear-to-b from-blue-300 to-pink-300;
+    @apply bg-linear-to-b from-blue-300 to-[#121B28];
   }
 }
+

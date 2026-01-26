@@ -104,7 +104,7 @@ const SignupForm = ({ setIsLogin }: { setIsLogin: (isLogin: boolean) => void }) 
               </FormItem>
             )}
           />
-          <Button className="w-1/2 mx-auto block items-center justify-center bg-indigo-500 text-white hover:bg-indigo-600 transition-all duration-300" type="submit">Sign up</Button>
+          <Button className="w-1/2 mx-auto block items-center justify-center bg-miamivice text-white hover:bg-indigo-600 transition-all duration-300" type="submit">Sign up</Button>
         </form>
       </Form>
       <span className='text-xs text-blue-300 cursor-pointer hover:text-indigo-600

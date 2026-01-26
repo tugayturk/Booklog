@@ -93,7 +93,7 @@ const LoginForm = ({ setIsLogin }: { setIsLogin: (isLogin: boolean) => void }) =
                 </FormItem>
               )}
             />
-            <Button className="w-1/2 mx-auto block items-center justify-center bg-indigo-500 hover:bg-pink-400 cursor-pointer text-white hover:scale-105 transition-all duration-300" type="submit">Login</Button>
+            <Button className="w-1/2 mx-auto block items-center justify-center bg-miamivice hover:bg-pink-400 cursor-pointer text-white hover:scale-105 transition-all duration-300" type="submit">Login</Button>
           </form>
         </Form>
         <span className="flex flex-row items-center text-xs justify-center text-blue-300 cursor-pointer transition-all duration-300 hover:text-sm" onClick={() => setIsLogin(false)}>Sign up
