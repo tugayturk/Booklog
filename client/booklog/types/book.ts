@@ -1,3 +1,4 @@
+import {Review }from "./review"
 export interface Book {
   _id: string;
   title: string;
@@ -7,3 +8,9 @@ export interface Book {
   createdAt?: string;
   updatedAt?: string;
 }
+export type BookDetail = {
+  id: string;
+  title: string;
+  description: string;
+  reviews: Review[];
+};

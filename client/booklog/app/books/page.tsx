@@ -3,7 +3,7 @@ import React from 'react'
 
 const Books = () => {
   return (
-    <div>
+    <div className='container mx-auto min-h-[500px] mt-2 mb-8 px-4'>
       <BookList />
     </div>
   )

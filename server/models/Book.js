@@ -17,6 +17,11 @@ const bookSchema = new mongoose.Schema (
     image: {
         type: String,
     },
+    reviews: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Review",
+        default: []
+    }],
 }, { createdAt: true, updatedAt: true })
 
 const Book = mongoose.model('Book', bookSchema);

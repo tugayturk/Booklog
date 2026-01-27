@@ -1,42 +1,15 @@
-import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardAction,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import Link from "next/link";
+
 import { Book as BookType } from '@/types/book';
+import BookCard from './bookCard';
 export function Book({ book }: { book: BookType[] }) {
 
 
   return (
-    <div className="flex flex-wrap gap-4">
-     {book.map((book: BookType, index: number) => (
-       <Card key={index} className="relative mx-auto w-full max-w-sm pt-0">
-       <div className="absolute inset-0 z-30 aspect-video " />
-       <img
-         src={book.image}
-         alt="Event cover"
-         className="relative z-20 aspect-video w-full object-contain "
-       />
-       <CardHeader>
-         <CardAction>
-         </CardAction>
-         <CardTitle>{book.title}</CardTitle>
-         <CardDescription>
-           {book.description}
-         </CardDescription>
-       </CardHeader>
-       <CardFooter>
-         <Button className="w-1/2 mx-auto bg-miamivice hover:bg-miamivice/80 text-white">
-         <Link href={`/books/${book._id}`}>View Book</Link></Button>
-       </CardFooter>
-     </Card>
-     ))}
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">
+      {book.map((book: BookType, index: number) => (
+        <BookCard key={index} book={book} index={index} />
+      ))}
     </div>
-   
+
   )
 }

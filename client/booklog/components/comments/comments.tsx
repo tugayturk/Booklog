@@ -6,29 +6,27 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { Review } from "@/types/review"
+import moment from "moment"
 
-const Comments = () => {
+const Comments = ({ reviews }: { reviews: Review[] }) => {
+
   return (
-    <div >
-        <Card className="mx-auto w-full mb-4">
-            <CardHeader>
-              <CardTitle className="flex justify-between">Tugay Türk
-                <span className="text-sm text-gray-500 text-right">1 day ago</span>
-                </CardTitle> 
-              <CardDescription className="text-sm">
-               Amazing book!
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p>
-                The card component supports a size prop that can be set to
-                &quot;sm&quot; for a more compact appearance.
-              </p>
-            </CardContent>
-            <CardFooter>
-            </CardFooter>
-          </Card>
-    </div>
+    reviews?.length > 0 && reviews?.map((review) => (
+      <div key={review.id}>
+        <Card className="mx-auto w-full h-[150px] mb-4">
+          <CardHeader>
+            <CardTitle className="flex justify-between">
+              {review.user.name} /   {review.rating}
+              <span className="text-xs text-gray-500 text-right">{moment(review.createdAt).format("DD/MM/YYYY")}</span>
+            </CardTitle>
+            <CardDescription className="text-xs">
+              {review.review}
+            </CardDescription>
+          </CardHeader>
+        </Card>
+      </div>
+    ))
   )
 }
 
