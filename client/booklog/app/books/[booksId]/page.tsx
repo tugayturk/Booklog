@@ -1,7 +1,7 @@
 "use client"
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react'
-import { getBookDetails,createReview } from '@/lib/api';
+import { getBookDetails, createReview } from '@/lib/api';
 import LoadingSpinner from '@/components/LoadingSpinner/Loading';
 import { Book as BookType, } from '@/types/book';
 import { Review } from '@/types/review';
@@ -32,6 +32,7 @@ import {
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
+import { toast } from 'react-toastify';
 
 const formSchema = z.object({
   review: z.string().min(5, {
@@ -57,20 +58,22 @@ const BookDetails = () => {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
+  const fetchBookDetails = async () => {
+    setLoading(true);
+    try {
+      const response = await getBookDetails(booksId as string);
+      setBook(response.book);
+      setReviews(response.reviews);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   useEffect(() => {
     if (!booksId) return;
-    const fetchBookDetails = async () => {
-      setLoading(true);
-      try {
-        const response = await getBookDetails(booksId as string);
-        setBook(response.book);
-        setReviews(response.reviews);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoading(false);
-      }
-    }
+
     fetchBookDetails()
   }, [booksId]);
 
@@ -79,21 +82,25 @@ const BookDetails = () => {
     const user = userString ? JSON.parse(userString) as { id: string } : null;
     const data = { ...values, user: user?.id };
     const response = await createReview(booksId as string, data);
+    toast.success(response.message);
+    form.reset();
+    fetchBookDetails();
   }
 
 
   return (
-    <div className='container mx-auto flex flex-row mt-2'>
+    loading ? <LoadingSpinner /> :
+      <div className='container mx-auto flex lg:flex-row flex-col mt-2'>
 
-      <div className='w-2/5'>
-        {loading ? <LoadingSpinner /> : book.map((book: BookType, index: number) =>
-          <BookCard key={index} book={book} index={index} />)}
-      </div>
+        <div className='w-full lg:w-2/5'>
+          {book?.length > 0 && book.map((book: BookType, index: number) =>
+            <BookCard key={index} book={book} index={index} />)}
+        </div>
 
-      <div className='w-3/5 flex flex-col'>
+        <div className='w-full lg:w-3/5 flex flex-col'>
 
-        <div className="w-full mb-2">
-            <Card className="py-4 px-4 border-none flex flex-col justify-center shadow-2xl bg-miamivice">
+          <div className="w-full mb-2 mt-2 lg:mt-0">
+            <Card className="py-4 px-4 border-none flex flex-col justify-center shadow-2xl bg-blue-300">
 
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
@@ -130,11 +137,11 @@ const BookDetails = () => {
                             </SelectTrigger>
                             <SelectContent>
                               {
-                                 Array.from({length:5},(_:any,i:number) => (
-                                     <SelectItem key={i + 1} value={(i + 1).toString()}>{i + 1}</SelectItem>
-                                 ))
+                                Array.from({ length: 5 }, (_: any, i: number) => (
+                                  <SelectItem key={i + 1} value={(i + 1).toString()}>{i + 1}</SelectItem>
+                                ))
                               }
-                             
+
                             </SelectContent>
                           </Select>
                         </FormControl>
@@ -143,22 +150,21 @@ const BookDetails = () => {
                     )}
                   />
                   <div className="flex justify-center">
-                  <Button className="bg-miamivice ">Add Your Review</Button>
-
+                    <Button className="bg-miamivice ">Add Your Review</Button>
                   </div>
                 </form>
               </Form>
             </Card>
-        </div>
-   
-        <div>
-          <Comments reviews={reviews} />
-        </div>
-   
-      </div>
+          </div>
 
-    </div>
-  );
+          <div>
+            <Comments reviews={reviews} />
+          </div>
+
+        </div>
+
+      </div>
+  )
 };
 
 export default BookDetails;

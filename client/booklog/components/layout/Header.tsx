@@ -22,7 +22,9 @@ const Header = () => {
   return (
     <header className='w-full h-18 text-white flex items-center justify-between bg-[#121B28] font-serif'>
       <div className='w-[120px] flex items-center justify-center  ml-2'>
-        <h1 className='text-md italic'>BookLog</h1>
+        <h1 className='text-md italic'>
+          <Link href="/home">BookLog</Link>
+        </h1>
       </div>
 
       <nav className='flex items-center justify-center gap-4 text-sm mr-2'>
