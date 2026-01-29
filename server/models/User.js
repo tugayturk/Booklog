@@ -16,7 +16,13 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         minlength: 6,
-    }
+    },
+    library: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Book",
+        }
+      ]
 });
 
 export default mongoose.model("User", userSchema);

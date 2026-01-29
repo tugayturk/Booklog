@@ -109,7 +109,6 @@ const BookDetails = () => {
   return (
     loading ? <LoadingSpinner /> :
       <div className='container mx-auto flex lg:flex-row flex-col mt-2'>
-
         <div className='w-full lg:w-2/5'>
           {book?.length > 0 && book.map((book: BookType, index: number) =>
             <BookCard key={index} book={book} index={index} />)}

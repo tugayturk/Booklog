@@ -14,4 +14,13 @@ const searchBooks = async (search:string) => {
     return response.data;
 }
 
-export { getBookDetails,createReview,searchBooks };
+const addBookToLibrary = async (id:string,userId:string) => {
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/book/${id}/library`,{userId});
+    return response.data;
+}
+const getUserLibrary = async (id:string) => {
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/user/${id}/library`);
+    return response.data;
+}
+
+export { getBookDetails,createReview,searchBooks,addBookToLibrary,getUserLibrary };
