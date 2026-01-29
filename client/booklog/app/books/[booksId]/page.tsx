@@ -1,7 +1,7 @@
 "use client"
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react'
-import { getBookDetails, createReview } from '@/lib/api';
+import { getBookDetails, createReview, searchBooks } from '@/lib/api';
 import LoadingSpinner from '@/components/LoadingSpinner/Loading';
 import { Book as BookType, } from '@/types/book';
 import { Review } from '@/types/review';
@@ -33,6 +33,7 @@ import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { toast } from 'react-toastify';
+import { useSearchParams } from 'next/navigation';
 
 const formSchema = z.object({
   review: z.string().min(5, {
@@ -53,6 +54,8 @@ const BookDetails = () => {
     },
   })
 
+  const searchParams = useSearchParams();
+  const title = searchParams.get("title");
   const { booksId } = useParams();
   const [book, setBook] = useState<BookType[]>([]);
   const [reviews, setReviews] = useState<Review[]>([]);
@@ -71,11 +74,27 @@ const BookDetails = () => {
     }
   }
 
+  const handleSearchBooks = async (title: string) => {
+    setLoading(true);
+    try {
+      const response = await searchBooks(title);
+      setBook(response.books);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   useEffect(() => {
     if (!booksId) return;
 
-    fetchBookDetails()
-  }, [booksId]);
+    if (title) {
+      handleSearchBooks(title);
+    }else{
+      fetchBookDetails();
+    }
+  }, [booksId, title]);
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const userString = window.localStorage.getItem("user");
@@ -86,7 +105,6 @@ const BookDetails = () => {
     form.reset();
     fetchBookDetails();
   }
-
 
   return (
     loading ? <LoadingSpinner /> :

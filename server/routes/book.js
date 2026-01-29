@@ -45,6 +45,22 @@ router.get("/books/sorted", async (req, res) => {
     }
 });
 
+// Search books - MUST be before /book/:id route
+router.get("/book/search", async (req, res) => {
+    try {
+        const { title } = req.query;
+        
+        if (!title || title.trim() === "") {
+            return res.status(400).json({ message: "Title parameter is required" });
+        }
+        
+        const books = await Book.find({ title: { $regex: title.trim(), $options: "i" } });
+        res.status(200).json({ message: "Books fetched successfully", books });
+    } catch (error) {
+        console.error("Book fetching error:", error);
+        res.status(500).json({ message: "Internal server error", error: error.message });
+    }
+});
 
 // Get book details
 router.get("/book/:id", async (req, res) => {
@@ -59,7 +75,6 @@ router.get("/book/:id", async (req, res) => {
 });
 
 // Create books reviews
-
 router.post("/book/:id/review", async (req, res) => {
     try {
         const { review, rating, user } = req.body;
@@ -91,7 +106,6 @@ router.post("/book/:id/review", async (req, res) => {
 })
 
 // Get books reviews
-
 router.get("/book/:id/reviews", async (req, res) => {
     try {
         const book = await Book.findById(req.params.id).populate("reviews");

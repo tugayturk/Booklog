@@ -29,7 +29,6 @@ const Home = () => {
 
     axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/books/sorted`).then((res) => {
       setSortedBooks(res.data.books);
-      console.log("sored", res.data)
       setReviews(res.data.reviews);
     }).catch((err: any) => {
       console.log(err);
