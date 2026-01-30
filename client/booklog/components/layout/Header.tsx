@@ -60,7 +60,7 @@ const Header = () => {
           <Link className=' pr-1' href="/books">Books</Link>
           <Link className=' pr-1' href="/myLibrary">My Library</Link>
           <Link className=' pr-1' href="/addBook">Add Book</Link>
-          <Link className='pr-1' href="/profile">Profile</Link>
+          <Link className='pr-1' href="/" onClick={handleLogout}>Logout</Link>
         </div>
 
         <div className='lg:hidden'>

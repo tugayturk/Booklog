@@ -2,11 +2,13 @@ import express from "express";
 import Book from "../models/Book.js";
 import User from "../models/User.js";
 import Review from "../models/Review.js";
+import authMiddleware from "../middleware/authMiddleware.js";
 const router = express.Router();
 
 // Create a book
-router.post("/books", async (req, res) => {
+router.post("/books", authMiddleware, async (req, res) => {
     const { title, author, description, image } = req.body;
+    
     try {
         const book = await Book.findOne({ title });
         if (book) {
@@ -75,9 +77,10 @@ router.get("/book/:id", async (req, res) => {
 });
 
 // Create books reviews
-router.post("/book/:id/review", async (req, res) => {
+router.post("/book/:id/review",authMiddleware, async (req, res) => {
+    const userId = req.user.id;
     try {
-        const { review, rating, user } = req.body;
+        const { review, rating } = req.body;
         const book = await Book.findById(req.params.id);
         if (!book) {
             return res.status(404).json({ message: "Book not found" });
@@ -87,7 +90,7 @@ router.post("/book/:id/review", async (req, res) => {
             review,
             rating,
             book: book._id,
-            user,
+            user: userId,
         });
 
         // Initialize reviews array if it doesn't exist
@@ -121,11 +124,11 @@ router.get("/book/:id/reviews", async (req, res) => {
 });
 
 // Add book to library
-router.post("/book/:id/library", async (req, res) => {
+router.post("/book/:id/library",authMiddleware, async (req, res) => {
+    const userId = req.user.id;
     try {
         const { bookId } = req.body;
-        const userId = req.params.id;
-        console.log(req.body);
+
         const book = await Book.findById(bookId);
         if (!book) {
             return res.status(404).json({ message: "Book not found" });
@@ -151,10 +154,10 @@ router.post("/book/:id/library", async (req, res) => {
 });
 
 // Remove book from library
-router.delete("/book/:id/library", async (req, res) => {
+router.delete("/book/:id/library",authMiddleware, async (req, res) => {
+    const userId = req.user.id;
     try {
         const { bookId } = req.body;
-        const userId = req.params.id;
         const user = await User.findById(userId);
         if (!user) {
             return res.status(404).json({ message: "User not found" });
