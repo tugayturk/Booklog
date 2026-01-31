@@ -36,13 +36,13 @@ export const LibraryProvider = ({ children }: { children: React.ReactNode }) => 
     }, [userId]);
 
     const addBookToLibrary = async (bookId: string) => {
+     
         if (!userId) return;
         const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/book/${bookId}/library`, { bookId }, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         });
-        // Library'yi güncellemek için tekrar fetch et
         await getUserLibrary();
         return response.data;
     }

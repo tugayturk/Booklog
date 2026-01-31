@@ -1,9 +1,15 @@
-import React from 'react'
+import { Metadata } from "next";
+import AddBook from "./addBook";
 
-const AddBook = () => {
+export const metadata: Metadata = {
+  title: 'Add Book',
+  description: 'Add Book',
+}
+
+const AddBookPage = () => {
   return (
-    <div>AddBook</div>
+    <AddBook />   
   )
 }
 
-export default AddBook
+export default AddBookPage;

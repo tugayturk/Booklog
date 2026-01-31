@@ -14,3 +14,11 @@ export type BookDetail = {
   description: string;
   reviews: Review[];
 };
+
+
+export type CreateBook = {
+  title: string;
+  author: string;
+  description: string;
+  image: string;
+}

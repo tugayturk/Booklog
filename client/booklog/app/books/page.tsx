@@ -1,5 +1,11 @@
 import BookList from '@/components/card/bookList'
 import React from 'react'
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Books',
+  description: 'Books',
+}
 
 const Books = () => {
   return (

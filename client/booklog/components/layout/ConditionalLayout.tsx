@@ -13,10 +13,12 @@ export default function ConditionalLayout({
   const isAuthPage = pathname === "/";
 
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
       {!isAuthPage && <Header />}
-      {children}
+      <main className="grow">
+        {children}
+      </main>
       {!isAuthPage && <Footer />}
-    </>
+    </div>
   );
 }

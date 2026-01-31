@@ -15,9 +15,7 @@ router.post("/books", authMiddleware, async (req, res) => {
             return res.status(400).json({ message: "Book already exists" });
         }
 
-
         const newBook = await Book.create({ title, author, description, image });
-
         res.status(201).json({ message: "Book created successfully", book: newBook });
     } catch (error) {
         console.error("Book creation error:", error);
